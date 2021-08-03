@@ -226,5 +226,36 @@ namespace DAY_23_AddressBook
                 Console.WriteLine("Your contact list is empty");
             }
         }
+
+        public static void DeleteDetails()
+        {
+            int f = 0;
+            if (contacts.Count > 0)
+            {
+                Console.Write("Enter name of a person you want to Delete: ");
+                string deleteName = Console.ReadLine();
+
+                foreach (var x in contacts)
+                {
+                    if (deleteName.ToLower() == x.firstName.ToLower())
+                    {
+                        Console.WriteLine("-----DELETED-----");
+                        Console.WriteLine($"You have deleted {x.firstName} contact");
+                        contacts.Remove(x);
+                        f = 1;
+                        break;
+                    }
+                }
+                if (f == 0)
+                {
+                    Console.WriteLine("The name you have entered not in the address book");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Your contact list is empty");
+            }
+        }
     }
 }
