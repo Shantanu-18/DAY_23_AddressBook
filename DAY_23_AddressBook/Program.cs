@@ -6,24 +6,10 @@ namespace DAY_23_AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Address Book System");
+            Console.WriteLine("Welcome to Address book program");
 
-
-            while (true)
-            {
-                Console.WriteLine("\n1. Add member to Contact list \n2.Exit");
-                Console.Write("Enter an option:");
-                switch (Convert.ToInt32(Console.ReadLine()))
-                {
-                    case 1:
-                        AddressBook.AddMember();
-                        break;
-                    
-                    case 2:
-                        Console.WriteLine("Exited");
-                        return;
-                }
-            }
+            AddressBook.AddContact();
+            AddressBook.ContactsDisplay();
         }
     }
 }
