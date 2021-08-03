@@ -4,290 +4,77 @@ using System.Text;
 
 namespace DAY_23_AddressBook
 {
-    class AddressBook
+    public class AddressBook
     {
-        private List<Person> contacts;
-        private static Dictionary<string, List<Person>> addressBookDictionary = new Dictionary<string, List<Person>>();
-        public void AddMember()
+        private static List<Person> contacts = new List<Person>();
+
+        public static void AddMember()
         {
-            string addressBookName;
-            contacts = new List<Person>();
+            Person person = new Person();
+
+            Console.Write("Enter First Name: ");
+            person.firstName = Console.ReadLine();
+
+            Console.Write("Enter Last Name: ");
+            person.lastName = Console.ReadLine();
+
+            Console.Write("Enter Address: ");
+            person.address = Console.ReadLine();
+
+            Console.Write("Enter City: ");
+            person.city = Console.ReadLine();
+
+            Console.Write("Enter State: ");
+            person.state = Console.ReadLine();
+
             while (true)
             {
-                Console.Write("Enter The Name of the Address Book: ");
-                addressBookName = Console.ReadLine();
+                Console.Write("Enter Zip Code of your area: ");
+                string code = Console.ReadLine();
 
-                if (addressBookDictionary.Count > 0)
+                if (code.Length == 6)
                 {
-                    if (addressBookDictionary.ContainsKey(addressBookName))
-                    {
-                        Console.WriteLine("This name of address book already exists");
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    person.zipCode = Convert.ToInt32(code);
+                    break;
                 }
                 else
                 {
+                    Console.WriteLine("Enter a valid 6 digit Zip Code.");
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("Enter Phone Number: ");
+                string phNo = Console.ReadLine();
+                if (phNo.Length == 10)
+                {
+                    person.phoneNumber = phNo;
                     break;
                 }
-
-            }
-
-            Console.Write("Enter Number of contacts you want to add: ");
-            int numOfContacts = Convert.ToInt32(Console.ReadLine());
-
-            while (numOfContacts > 0)
-            {
-                Person person = new Person();
-
-                Console.Write("Enter First Name: ");
-                person.firstName = Console.ReadLine();
-                Console.Write("Enter Last Name: ");
-                person.lastName = Console.ReadLine();
-                Console.Write("Enter Address: ");
-                person.address = Console.ReadLine();
-                Console.Write("Enter City: ");
-                person.city = Console.ReadLine();
-                Console.Write("Enter State: ");
-                person.state = Console.ReadLine();
-
-                while (true)
+                else
                 {
-                    Console.Write("Enter Zip Code of your area: ");
-                    string code = Console.ReadLine();
-
-                    if (code.Length == 6)
-                    {
-                        person.zipCode = Convert.ToInt32(code);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter a valid 6 digit Zip Code.");
-                    }
-                }
-
-                while (true)
-                {
-                    Console.Write("Enter Phone Number: ");
-                    string phNo = Console.ReadLine();
-                    if (phNo.Length == 10)
-                    {
-                        person.phoneNumber = phNo;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter Valid Phone Number, It should Contains 10 digits");
-                    }
-                }
-                while (true)
-                {
-                    Console.Write("Enter Email-id: ");
-                    string emailId = Console.ReadLine();
-                    if (emailId.Contains("@"))
-                    {
-                        person.email = emailId;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter Valid Email Id,It should Contains @ ");
-                    }
-                }
-                contacts.Add(person);
-
-                numOfContacts--;
-            }
-            addressBookDictionary.Add(addressBookName, contacts);
-            Console.WriteLine("-------Successfully Added-------");
-        }
-
-        public void ViewContacts()
-        {
-            if (addressBookDictionary.Count > 0)
-            {
-                foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
-                {
-                    Console.WriteLine($"--------->{dict.Key}<---------");
-                    foreach (var addressBook in dict.Value)
-                    {
-                        PrintValues(addressBook);
-                        Console.WriteLine("-----------------------------");
-                    }
+                    Console.WriteLine("Enter Valid Phone Number,It should Contain 10 digits");
                 }
             }
-            else
+
+            while (true)
             {
-                Console.WriteLine("Address Book is Empty");
-            }
-
-        }
-
-        public void PrintValues(Person x)
-        {
-            Console.WriteLine($"First Name : {x.firstName}");
-            Console.WriteLine($"Last Name : {x.lastName}");
-            Console.WriteLine($"Address : {x.address}");
-            Console.WriteLine($"City : {x.city}");
-            Console.WriteLine($"State : {x.state}");
-            Console.WriteLine($"Zip Code: {x.zipCode}");
-            Console.WriteLine($"Phone Number: {x.phoneNumber}");
-            Console.WriteLine($"Email: {x.email}");
-        }
-
-        public void EditDetails()
-        {
-            int f;
-            if (contacts.Count > 0)
-            {
-                Console.Write("Enter name of a person you want to edit: ");
-                string editName = Console.ReadLine();
-
-                foreach (var x in contacts)
+                Console.Write("Enter Email-id: ");
+                string emailId = Console.ReadLine();
+                if (emailId.Contains("@"))
                 {
-                    if (editName.ToLower() == x.firstName.ToLower())
-                    {
-                        while (true)
-                        {
-                            f = 0;
-                            Console.WriteLine("Enter Option You want to edit");
-                            Console.WriteLine("1.First name\n2.Last name\n3.Address\n4.City" +
-                                "\n5.State\n6.ZipCode\n7.Phone Number\n8.email\n9.Exit");
-                            
-                            switch (Convert.ToInt32(Console.ReadLine()))
-                            {
-                                case 1:
-                                    Console.WriteLine("Enter New First name");
-                                    x.firstName = Console.ReadLine();
-                                    break;
-
-                                case 2:
-                                    Console.WriteLine("Enter New Last name");
-                                    x.lastName = Console.ReadLine();
-                                    break;
-
-                                case 3:
-                                    Console.WriteLine("Enter New Address");
-                                    x.address = Console.ReadLine();
-                                    break;
-
-                                case 4:
-                                    Console.WriteLine("Enter New City");
-                                    x.city = Console.ReadLine();
-                                    break;
-
-                                case 5:
-                                    Console.WriteLine("Enter New State");
-                                    x.state = Console.ReadLine();
-                                    break;
-
-                                case 6:
-                                    while (true)
-                                    {
-                                        Console.Write("Enter new Zip Code: ");
-                                        string code = Console.ReadLine();
-
-                                        if (code.Length == 6)
-                                        {
-                                            x.zipCode = Convert.ToInt32(code);
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Enter a valid 6 digit Zip Code.");
-                                        }
-                                    }
-                                    break;
-
-                                case 7:
-                                    while (true)
-                                    {
-                                        Console.Write("Enter new Phone Number: ");
-                                        string phNo = Console.ReadLine();
-                                        if (phNo.Length == 10)
-                                        {
-                                            x.phoneNumber = phNo;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Enter Valid Phone Number. It should Contains 10 digits");
-                                        }
-                                    }
-                                    break;
-                                case 8:
-                                    while (true)
-                                    {
-                                        Console.Write("Enter new Email-id: ");
-                                        string emailId = Console.ReadLine();
-                                        if (emailId.Contains("@"))
-                                        {
-                                            x.email = emailId;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Enter Valid Email Id. It should Contains @ ");
-                                        }
-                                    }
-                                    break;
-
-                                case 9:
-                                    Console.WriteLine("Exited");
-                                    f = 1;
-                                    break;
-
-                            }
-                            if (f == 1)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entered name is not in Contact list");
-                    }
+                    person.email = emailId;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Email Id, It should Contains @ ");
                 }
             }
-            else
-            {
-                Console.WriteLine("Your contact list is empty");
-            }
-        }
+            contacts.Add(person);
 
-        public void DeleteDetails()
-        {
-            int f = 0;
-            if (contacts.Count > 0)
-            {
-                Console.Write("Enter name of a person you want to Delete: ");
-                string deleteName = Console.ReadLine();
-
-                foreach (var x in contacts)
-                {
-                    if (deleteName.ToLower() == x.firstName.ToLower())
-                    {
-                        Console.WriteLine("-----DELETED-----");
-                        Console.WriteLine($"You have deleted {x.firstName} contact");
-                        contacts.Remove(x);
-                        f = 1;
-                        break;
-                    }
-                }
-                if (f == 0)
-                {
-                    Console.WriteLine("The name you have entered not in the address book");
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("Your contact list is empty");
-            }
+            Console.WriteLine("Added Successfully");
         }
     }
 }
