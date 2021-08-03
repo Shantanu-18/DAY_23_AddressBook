@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAY_23_AddressBook
 {
-    public class AddressBook
+    class AddressBook
     {
         private static List<Person> contacts = new List<Person>();
 
@@ -75,6 +75,35 @@ namespace DAY_23_AddressBook
             contacts.Add(person);
 
             Console.WriteLine("Added Successfully");
+        }
+
+        public static void ViewContacts()
+        {
+            if (contacts.Count > 0)
+            {
+                Console.WriteLine("--------------Your Address Book--------------");
+                foreach (var x in contacts)
+                {
+                    PrintValues(x);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Address Book is Empty");
+            }
+        }
+
+        public static void PrintValues(Person x)
+        {
+            Console.WriteLine($"First Name : {x.firstName}");
+            Console.WriteLine($"Last Name : {x.lastName}");
+            Console.WriteLine($"Address : {x.address}");
+            Console.WriteLine($"City : {x.city}");
+            Console.WriteLine($"State : {x.state}");
+            Console.WriteLine($"Zip Code: {x.zipCode}");
+            Console.WriteLine($"Phone Number: {x.phoneNumber}");
+            Console.WriteLine($"Email: {x.email}");
         }
     }
 }
