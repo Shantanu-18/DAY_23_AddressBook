@@ -11,7 +11,7 @@ namespace DAY_23_AddressBook
 
             while (true)
             {
-                Console.WriteLine("\n1. Add member to Contact list \n2.View Members in Contact List \n3.Edit Contact " +
+                Console.WriteLine("\n1.Add member to Contact list \n2.View Members in Contact List \n3.Edit Contact " +
                                         "\n4.Delete Contact\n5.Exit");
                 Console.Write("Enter an option:");
                 switch (Convert.ToInt32(Console.ReadLine()))
