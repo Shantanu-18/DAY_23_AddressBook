@@ -319,13 +319,13 @@ namespace DAY_23_AddressBook
             {
                 Console.WriteLine("{0}", contact.firstName);
             }
+            Console.WriteLine("Total count of persons in the city {0} is {1}", cityKey, cityPersons[cityKey].Count);
             Console.WriteLine("--------------------Persons in {0} state", stateKey);
             foreach (Contacts contact in statePersons[stateKey])
             {
                 Console.WriteLine("{0}", contact.firstName);
             }
+            Console.WriteLine("Total count of persons in the state {0} is {1}", stateKey, statePersons[stateKey].Count);
         }
-
-
     }
 }
