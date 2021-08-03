@@ -15,7 +15,8 @@ namespace DAY_23_AddressBook
             int count = Convert.ToInt32(Console.ReadLine());
             while (count > 0)
             {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
+                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook" +
+                    "\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
                 int key = Convert.ToInt32(Console.ReadLine());
                 if (key == 1)
                 {
@@ -74,7 +75,8 @@ namespace DAY_23_AddressBook
                 }
                 else
                 {
-                    Console.WriteLine("The name {0} already  exist in the current address book. please enter a new name", firstName);
+                    Console.WriteLine("The name {0} already  exist in the current address book. " +
+                        "please enter a new name", firstName);
                     goto firstName;
                 }
 
@@ -182,7 +184,9 @@ namespace DAY_23_AddressBook
                     {
                         while (true)
                         {
-                            Console.WriteLine("Enter the key number for editing the details\n 1. First name\n 2. Last name\n 3. Address\n 4. City\n 5. State\n 6. Zipcode\n 7. Phone number\n 8. Email ID\n 9. Exit editor");
+                            Console.WriteLine("Enter the key number for editing the details\n 1. First name\n 2. Last name" +
+                                "\n 3. Address\n 4. City\n 5. State\n 6. Zipcode\n 7. Phone number\n 8. Email ID" +
+                                "\n 9. Exit editor");
                             int key = Convert.ToInt32(Console.ReadLine());
                             switch (key)
                             {
@@ -277,6 +281,25 @@ namespace DAY_23_AddressBook
             {
 
                 Console.WriteLine("contact of the person {0} does not exist", deleteKey);
+            }
+        }
+
+        public static void PersonSearch()
+        {
+            Console.WriteLine("Enter the city that you want to search");
+            string cityKey = Console.ReadLine();
+            Console.WriteLine("Enter the state that you want to search");
+            string stateKey = Console.ReadLine();
+            foreach (string addressBookName in mySystem.Keys)
+            {
+                foreach (Contacts contact in mySystem[addressBookName])
+                {
+                    if (cityKey.ToLower() == contact.city || stateKey.ToLower() == contact.state)
+                    {
+                        Console.WriteLine("In address book {0}, {1} is staying in {2} city and {3} state",
+                            addressBookName, contact.firstName, contact.city, contact.state);
+                    }
+                }
             }
         }
     }
