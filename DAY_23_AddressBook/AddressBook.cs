@@ -6,7 +6,7 @@ namespace DAY_23_AddressBook
 {
     class AddressBook
     {
-        public static Dictionary<string, List<Contacts>> mySystem = new Dictionary<string, List<Contacts>>();
+        public static Dictionary<string, List<Contacts>> myDictAddress = new Dictionary<string, List<Contacts>>();
         public static List<Contacts> addressBook;
 
         public static void addAddressBook()
@@ -20,39 +20,39 @@ namespace DAY_23_AddressBook
                 int key = Convert.ToInt32(Console.ReadLine());
                 if (key == 1)
                 {
-                    AddressBookNewNameValidator();
+                    NewNameAddressBookValidator();
                 }
                 else if (key == 2)
                 {
-                    AddressBookExistingNameValidator();
+                    ExistingNameAddressBookValidator();
                 }
                 count--;
             }
         }
 
-        public static void AddressBookNewNameValidator()
+        public static void NewNameAddressBookValidator()
         {
             Console.WriteLine("Enter the new addressbook name\n");
             string addressBookName = Console.ReadLine();
-            if (mySystem.ContainsKey(addressBookName))
+            if (myDictAddress.ContainsKey(addressBookName))
             {
                 Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
-                AddressBookNewNameValidator();
+                NewNameAddressBookValidator();
             }
             else
             {
-                mySystem[addressBookName] = new List<Contacts>();
+                myDictAddress[addressBookName] = new List<Contacts>();
                 AddContact(addressBookName);
             }
         }
-        public static void AddressBookExistingNameValidator()
+        public static void ExistingNameAddressBookValidator()
         {
             Console.WriteLine("Enter the Existing addressbook name\n");
             string addressBookName = Console.ReadLine();
-            if (!mySystem.ContainsKey(addressBookName))
+            if (!myDictAddress.ContainsKey(addressBookName))
             {
                 Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
-                AddressBookExistingNameValidator();
+                ExistingNameAddressBookValidator();
             }
             else
             {
@@ -95,7 +95,7 @@ namespace DAY_23_AddressBook
                 Console.WriteLine("Enter your Email ID");
                 person.eMail = Console.ReadLine();
 
-                mySystem[addressBookName].Add(person);
+                myDictAddress[addressBookName].Add(person);
                 Console.WriteLine("{0}'s contact succesfully added", person.firstName);
 
                 personNum--;
@@ -105,9 +105,9 @@ namespace DAY_23_AddressBook
         public static bool NameDuplicationCheck(string addressBookName, string firstName)
         {
             int flag = 0;
-            if (mySystem[addressBookName].Count > 0)
+            if (myDictAddress[addressBookName].Count > 0)
             {
-                foreach (Contacts contact in mySystem[addressBookName])
+                foreach (Contacts contact in myDictAddress[addressBookName])
                 {
                     if (!(contact.firstName == firstName))
                     {
@@ -137,12 +137,12 @@ namespace DAY_23_AddressBook
         {
             Console.WriteLine("Enter the name of the addressbook that you wants to use for displaying contacts");
             string addressBookName = Console.ReadLine();
-            if (mySystem[addressBookName].Count > 0)
+            if (myDictAddress[addressBookName].Count > 0)
             {
                 Console.WriteLine("Enter the name of the person to get all the contact details");
                 string nameKey = Console.ReadLine();
                 int flag = 0;
-                foreach (Contacts contact in mySystem[addressBookName])
+                foreach (Contacts contact in myDictAddress[addressBookName])
                 {
                     if (nameKey.ToLower() == contact.firstName.ToLower())
                     {
@@ -176,9 +176,9 @@ namespace DAY_23_AddressBook
             Console.WriteLine("Enter the first name of the person whoom you want to edit the details");
             string editKey = Console.ReadLine();
             int flag = 0;
-            if (mySystem[addressBookName].Count > 0)
+            if (myDictAddress[addressBookName].Count > 0)
             {
-                foreach (Contacts contact in mySystem[addressBookName])
+                foreach (Contacts contact in myDictAddress[addressBookName])
                 {
                     if (editKey.ToLower() == contact.firstName.ToLower())
                     {
@@ -257,9 +257,9 @@ namespace DAY_23_AddressBook
             Console.WriteLine("Enter the first name of the person whose contact you want to delete from the addressbook");
             string deleteKey = Console.ReadLine();
             int flag = 0;
-            if (mySystem[addressBookName].Count > 0)
+            if (myDictAddress[addressBookName].Count > 0)
             {
-                foreach (Contacts contact in mySystem[addressBookName])
+                foreach (Contacts contact in myDictAddress[addressBookName])
                 {
                     if (deleteKey.ToLower() == contact.firstName.ToLower())
                     {
@@ -295,9 +295,9 @@ namespace DAY_23_AddressBook
             Console.WriteLine("Enter the state that you want to search");
             string stateKey = Console.ReadLine();
             statePerson[stateKey] = new List<Contacts>();
-            foreach (string addressBookName in mySystem.Keys)
+            foreach (string addressBookName in myDictAddress.Keys)
             {
-                foreach (Contacts contact in mySystem[addressBookName])
+                foreach (Contacts contact in myDictAddress[addressBookName])
                 {
                     if (cityKey.ToLower() == contact.city)
                     {
