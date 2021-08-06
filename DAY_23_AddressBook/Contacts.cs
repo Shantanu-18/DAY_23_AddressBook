@@ -12,7 +12,7 @@ namespace DAY_23_AddressBook
         public string city { get; set; }
         public string state { get; set; }
         public string ZipCode { get; set; }
-        public string PhoneNunmber { get; set; }
+        public string PhoneNumber { get; set; }
         public string eMail { get; set; }
     }
 }
