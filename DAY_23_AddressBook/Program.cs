@@ -15,7 +15,8 @@ namespace DAY_23_AddressBook
             {
                 Console.WriteLine("\nEnter your choice \n 1. To Display Address book \n 2. To edit the existing contact" +
                    " \n 3. To delete contact \n 4. To search person by city or state" +
-                   " \n 5. To sort and Display Address Book Alphabetically \n 6. To Exit.");
+                   " \n 5. To sort and Display Address Book Alphabetically \n 6. To sort and Display Address Book" +
+                   " by City, State, Zip \n 7. To Exit.");
 
                 int choice = int.Parse(Console.ReadLine());
 
@@ -43,8 +44,12 @@ namespace DAY_23_AddressBook
                         break;
 
                     case 6:
+                        AddressBook.SortByCityStateZip();
+                        break;
+
+                    case 7:
                         Console.WriteLine("Thank you.");
-                        return;
+                        break;
 
                     default:
                         Console.WriteLine("Enter valid choice.");
