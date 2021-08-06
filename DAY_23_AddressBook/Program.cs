@@ -6,8 +6,7 @@ namespace DAY_23_AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Address Book.");
-            Console.WriteLine();
+            Console.WriteLine("Welcome to Address Book.\n");
 
             AddressBook.addAddressBook();
 

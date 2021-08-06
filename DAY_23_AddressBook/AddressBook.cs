@@ -151,7 +151,7 @@ namespace DAY_23_AddressBook
                     Console.WriteLine($"Zip code-->{contact.ZipCode}");
                     Console.WriteLine($"Phone number-->{contact.PhoneNumber}");
                     Console.WriteLine($"E-Mail ID-->{contact.eMail}");
-                    Console.WriteLine();
+                    Console.WriteLine("------------------");
 
                 }
             }
@@ -306,7 +306,7 @@ namespace DAY_23_AddressBook
 
         public static void PersonSearchDisplay(Dictionary<string, List<Contacts>> cityPersons, Dictionary<string, List<Contacts>> statePersons, string cityKey, string stateKey)
         {
-            Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
+            Console.WriteLine("------------------ Persons in {0} city ------------------", cityKey);
             foreach (Contacts contact in cityPersons[cityKey])
             {
                 Console.WriteLine("{0}", contact.firstName);
