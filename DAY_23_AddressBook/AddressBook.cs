@@ -11,7 +11,7 @@ namespace DAY_23_AddressBook
 
         public static void addAddressBook()
         {
-            Console.WriteLine("How many addressbooks do you want to create?");
+            Console.Write("How many addressbooks do you want to create: ");
             int count = Convert.ToInt32(Console.ReadLine());
             while (count > 0)
             {
@@ -32,11 +32,11 @@ namespace DAY_23_AddressBook
 
         public static void NewNameAddressBookValidator()
         {
-            Console.WriteLine("Enter the new addressbook name\n");
+            Console.Write("Enter the new addressbook name: ");
             string addressBookName = Console.ReadLine();
             if (myDictAddress.ContainsKey(addressBookName))
             {
-                Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
+                Console.WriteLine("\nPlease enter a new addressbook name. The name entered already exist");
                 NewNameAddressBookValidator();
             }
             else
@@ -47,11 +47,11 @@ namespace DAY_23_AddressBook
         }
         public static void ExistingNameAddressBookValidator()
         {
-            Console.WriteLine("Enter the Existing addressbook name\n");
+            Console.Write("Enter the Existing addressbook name: ");
             string addressBookName = Console.ReadLine();
             if (!myDictAddress.ContainsKey(addressBookName))
             {
-                Console.WriteLine("Please enter a new addressbook name. The name entered already exist");
+                Console.WriteLine("\nPlease enter a new addressbook name. The name entered already exist");
                 ExistingNameAddressBookValidator();
             }
             else
@@ -61,13 +61,13 @@ namespace DAY_23_AddressBook
         }
         public static void AddContact(string addressBookName)
         {
-            Console.WriteLine("How many person's contact details do you want to add?");
+            Console.Write("How many person's contact details do you want to add? ");
             int personNum = Convert.ToInt32(Console.ReadLine());
             while (personNum > 0)
             {
                 Contacts person = new Contacts();
             firstName:
-                Console.WriteLine("Enter your First name");
+                Console.Write("Enter your First name: ");
                 string firstName = Console.ReadLine();
                 if (NameDuplicationCheck(addressBookName, firstName))
                 {
@@ -80,23 +80,24 @@ namespace DAY_23_AddressBook
                     goto firstName;
                 }
 
-                Console.WriteLine("Enter your Last name");
+                Console.Write("Enter your Last name: ");
                 person.lastName = Console.ReadLine();
-                Console.WriteLine("Enter your address");
+                Console.Write("Enter your address: ");
                 person.address = Console.ReadLine();
-                Console.WriteLine("Enter your city");
+                Console.Write("Enter your city: ");
                 person.city = Console.ReadLine();
-                Console.WriteLine("Enter your State");
+                Console.Write("Enter your State: ");
                 person.state = Console.ReadLine();
-                Console.WriteLine("Enter your Zip code");
+                Console.Write("Enter your Zip code: ");
                 person.ZipCode = Console.ReadLine();
-                Console.WriteLine("Enter your Phone number");
-                person.PhoneNunmber = Console.ReadLine();
-                Console.WriteLine("Enter your Email ID");
+                Console.Write("Enter your Phone number: ");
+                person.PhoneNumber = Console.ReadLine();
+                Console.Write("Enter your Email ID: ");
                 person.eMail = Console.ReadLine();
 
                 myDictAddress[addressBookName].Add(person);
                 Console.WriteLine("{0}'s contact succesfully added", person.firstName);
+                Console.WriteLine();
 
                 personNum--;
             }
@@ -135,32 +136,23 @@ namespace DAY_23_AddressBook
         }
         public static void ContactsDisplay()
         {
-            Console.WriteLine("Enter the name of the addressbook that you wants to use for displaying contacts");
+            Console.Write("Enter the name of the addressbook that you wants to use for displaying contacts: ");
             string addressBookName = Console.ReadLine();
+            Console.WriteLine();
             if (myDictAddress[addressBookName].Count > 0)
             {
-                Console.WriteLine("Enter the name of the person to get all the contact details");
-                string nameKey = Console.ReadLine();
-                int flag = 0;
                 foreach (Contacts contact in myDictAddress[addressBookName])
                 {
-                    if (nameKey.ToLower() == contact.firstName.ToLower())
-                    {
-                        flag = 1;
-                        Console.WriteLine("First name-->{0}", contact.firstName);
-                        Console.WriteLine("Last name-->{0}", contact.lastName);
-                        Console.WriteLine("Address-->{0}", contact.address);
-                        Console.WriteLine("City-->{0}", contact.city);
-                        Console.WriteLine("State-->{0}", contact.state);
-                        Console.WriteLine("Zip code-->{0}", contact.ZipCode);
-                        Console.WriteLine("Phone number-->{0}", contact.PhoneNunmber);
-                        Console.WriteLine("E-Mail ID-->{0}", contact.eMail);
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    Console.WriteLine("contact of the person {0} does not exist", nameKey);
+                    Console.WriteLine($"First name-->{contact.firstName}");
+                    Console.WriteLine($"Last name-->{contact.lastName}");
+                    Console.WriteLine($"Address-->{contact.address}");
+                    Console.WriteLine($"City-->{contact.city}");
+                    Console.WriteLine($"State-->{contact.state}");
+                    Console.WriteLine($"Zip code-->{contact.ZipCode}");
+                    Console.WriteLine($"Phone number-->{contact.PhoneNumber}");
+                    Console.WriteLine($"E-Mail ID-->{contact.eMail}");
+                    Console.WriteLine();
+
                 }
             }
             else
@@ -171,9 +163,9 @@ namespace DAY_23_AddressBook
 
         public static void EditContact()
         {
-            Console.WriteLine("Enter the name of the addressbook that you wants to use for editing contacts");
+            Console.Write("Enter the name of the addressbook that you wants to use for editing contacts: ");
             string addressBookName = Console.ReadLine();
-            Console.WriteLine("Enter the first name of the person whoom you want to edit the details");
+            Console.Write("Enter the first name of the person whoom you want to edit the details: ");
             string editKey = Console.ReadLine();
             int flag = 0;
             if (myDictAddress[addressBookName].Count > 0)
@@ -191,35 +183,35 @@ namespace DAY_23_AddressBook
                             switch (key)
                             {
                                 case 1:
-                                    Console.WriteLine("Enter the new First name");
+                                    Console.Write("Enter the new First name: ");
                                     contact.firstName = Console.ReadLine();
                                     break;
                                 case 2:
-                                    Console.WriteLine("Enter the new Last name");
+                                    Console.Write("Enter the new Last name: ");
                                     contact.lastName = Console.ReadLine();
                                     break;
                                 case 3:
-                                    Console.WriteLine("Enter the new address");
+                                    Console.Write("Enter the new address: ");
                                     contact.address = Console.ReadLine();
                                     break;
                                 case 4:
-                                    Console.WriteLine("Enter the new city");
+                                    Console.Write("Enter the new city: ");
                                     contact.city = Console.ReadLine();
                                     break;
                                 case 5:
-                                    Console.WriteLine("Enter the new state");
+                                    Console.Write("Enter the new state: ");
                                     contact.state = Console.ReadLine();
                                     break;
                                 case 6:
-                                    Console.WriteLine("Enter the new zip code");
+                                    Console.WriteLine("Enter the new zip code: ");
                                     contact.ZipCode = Console.ReadLine();
                                     break;
                                 case 7:
-                                    Console.WriteLine("Enter the new phone");
-                                    contact.PhoneNunmber = Console.ReadLine();
+                                    Console.WriteLine("Enter the new phone: ");
+                                    contact.PhoneNumber = Console.ReadLine();
                                     break;
                                 case 8:
-                                    Console.WriteLine("Enter the new E-Mail ID");
+                                    Console.Write("Enter the new E-Mail ID: ");
                                     contact.eMail = Console.ReadLine();
                                     break;
                                 case 9:
@@ -252,9 +244,9 @@ namespace DAY_23_AddressBook
         }
         public static void DeleteContact()
         {
-            Console.WriteLine("Enter the name of the addressbook that you wants to use for Deleting contacts");
+            Console.Write("Enter the name of the addressbook that you wants to use for Deleting contacts: ");
             string addressBookName = Console.ReadLine();
-            Console.WriteLine("Enter the first name of the person whose contact you want to delete from the addressbook");
+            Console.Write("Enter the first name of the person whose contact you want to delete from the addressbook: ");
             string deleteKey = Console.ReadLine();
             int flag = 0;
             if (myDictAddress[addressBookName].Count > 0)
@@ -289,10 +281,10 @@ namespace DAY_23_AddressBook
             Dictionary<string, List<Contacts>> cityPersons = new Dictionary<string, List<Contacts>>();
             Dictionary<string, List<Contacts>> statePerson = new Dictionary<string, List<Contacts>>();
 
-            Console.WriteLine("Enter the city that you want to search");
+            Console.Write("Enter the city that you want to search: ");
             string cityKey = Console.ReadLine();
             cityPersons[cityKey] = new List<Contacts>();
-            Console.WriteLine("Enter the state that you want to search");
+            Console.Write("Enter the state that you want to search: ");
             string stateKey = Console.ReadLine();
             statePerson[stateKey] = new List<Contacts>();
             foreach (string addressBookName in myDictAddress.Keys)
@@ -326,6 +318,23 @@ namespace DAY_23_AddressBook
                 Console.WriteLine("{0}", contact.firstName);
             }
             Console.WriteLine("Total count of persons in the state {0} is {1}", stateKey, statePersons[stateKey].Count);
+        }
+
+        public static void SortEntriesAlphabetically()
+        {
+            Console.Write("Enter the name of address book you want to sort: ");
+            string addressBookName = Console.ReadLine();
+            Console.WriteLine();
+
+            if (myDictAddress.ContainsKey(addressBookName))
+            {
+                myDictAddress[addressBookName].Sort((x,y) => x.firstName.CompareTo(y.firstName));
+                ContactsDisplay();
+            }
+            else
+            {
+                Console.WriteLine("This address book doesn't exists in our record.");
+            }
         }
     }
 }
