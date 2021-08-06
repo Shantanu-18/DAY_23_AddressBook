@@ -6,21 +6,52 @@ namespace DAY_23_AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Address book program");
+            Console.WriteLine("Welcome to Address Book.");
+            Console.WriteLine();
 
             AddressBook.addAddressBook();
-            AddressBook.PersonSearch();
-            //Console.WriteLine("\n");
-            //AddressBook.ContactsDisplay();
-            //Console.WriteLine("\n");
-            //AddressBook.EditContact();
-            //Console.WriteLine("\n");
-            //AddressBook.ContactsDisplay();
-            //Console.WriteLine("\n");
-            //AddressBook.ContactsDisplay();
-            //AddressBook.ContactsDisplay();
-            //AddressBook.ContactsDisplay();
-            //AddressBook.ContactsDisplay();
+
+            while (true)
+            {
+                Console.WriteLine("\nEnter your choice \n 1. To Display Address book \n 2. To edit the existing contact" +
+                   " \n 3. To delete contact \n 4. To search person by city or state" +
+                   " \n 5. To sort and Display Address Book Alphabetically \n 6. To Exit.");
+
+                int choice = int.Parse(Console.ReadLine());
+
+
+                switch (choice)
+                {
+                    case 1:
+                        AddressBook.ContactsDisplay();
+                        break;
+
+                    case 2:
+                        AddressBook.EditContact();
+                        break;
+
+                    case 3:
+                        AddressBook.DeleteContact();
+                        break;
+
+                    case 4:
+                        AddressBook.PersonSearch();
+                        break;
+
+                    case 5:
+                        AddressBook.SortEntriesAlphabetically();
+                        break;
+
+                    case 6:
+                        Console.WriteLine("Thank you.");
+                        return;
+
+                    default:
+                        Console.WriteLine("Enter valid choice.");
+                        break;
+                }
+
+            }
         }
     }
 }
