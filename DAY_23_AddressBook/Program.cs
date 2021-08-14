@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace DAY_23_AddressBook
 {
@@ -8,53 +9,65 @@ namespace DAY_23_AddressBook
         {
             Console.WriteLine("Welcome to Address Book.\n");
 
-            AddressBook.addAddressBook();
+            if (File.Exists(@"E:\FellowShip\DAY_23_AddressBook\DAY_23_AddressBook\AddressBook.txt"))
+            {
+                AddressBook.DeserializePass();
+            }
+            else
+            {
+                AddressBook.Serializepass();
+            }
 
             while (true)
             {
-                Console.WriteLine("\nEnter your choice \n 1. To Display Address book \n 2. To edit the existing contact" +
-                   " \n 3. To delete contact \n 4. To search person by city or state" +
-                   " \n 5. To sort and Display Address Book Alphabetically \n 6. To sort and Display Address Book" +
-                   " by City, State, Zip \n 7. To Exit.");
+                InvalidInput:
+                Console.WriteLine("Enter a number\n" +
+                    "1. Adding contacts in new addressbook or existing addressbook\n" +
+                    "2. Edit a contact\n" +
+                    "3. Delete contact\n" +
+                    "4. Search and display persons based on their city and state  and their counts\n" +
+                    "5. Sort a addressbook based on person's first name\n" +
+                    "6. Display complete addressBook\n" +
+                    "7. Display a contact based on person's first name\n" +
+                    "8. Exit\n");
 
-                int choice = int.Parse(Console.ReadLine());
-
-
-                switch (choice)
+                switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
-                        AddressBook.ContactsDisplay();
+                        AddressBook.addressBookNewExisting();
+                        AddressBook.Serializepass();
+                        AddressBook.DeserializePass();
                         break;
-
                     case 2:
                         AddressBook.EditContact();
+                        AddressBook.Serializepass();
+                        AddressBook.DeserializePass();
                         break;
-
                     case 3:
                         AddressBook.DeleteContact();
+                        AddressBook.Serializepass();
+                        AddressBook.DeserializePass();
                         break;
-
                     case 4:
                         AddressBook.PersonSearch();
                         break;
-
                     case 5:
-                        AddressBook.SortEntriesAlphabetically();
+                        AddressBook.AddressBookSorting();
+                        AddressBook.Serializepass();
+                        AddressBook.DeserializePass();
                         break;
-
                     case 6:
-                        AddressBook.SortByCityStateZip();
+                        AddressBook.AddressBookDisplay();
                         break;
-
                     case 7:
-                        Console.WriteLine("Thank you.");
+                        AddressBook.ContactsDisplay();
                         break;
-
+                    case 8:
+                        break;
                     default:
-                        Console.WriteLine("Enter valid choice.");
-                        break;
+                        Console.WriteLine("PLEASE ENTER A VALID NUMBER\n");
+                        goto InvalidInput;
                 }
-
             }
         }
     }
