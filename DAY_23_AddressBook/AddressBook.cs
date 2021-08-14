@@ -9,23 +9,44 @@ namespace DAY_23_AddressBook
         public static Dictionary<string, List<Contacts>> myDictAddress = new Dictionary<string, List<Contacts>>();
         public static List<Contacts> addressBook;
 
+        public static void Serializepass()
+        {
+            BinarySerializations.Serializations(myDictAddress);
+        }
+        public static void DeserializePass()
+        {
+            Dictionary<string, List<Contacts>> myDictAddressCopy = BinaryDeserialization.Deserialization();
+            myDictAddress.Clear();
+            foreach (string key in myDictAddressCopy.Keys)
+            {
+                myDictAddress.Add(key, myDictAddressCopy[key]);
+            }
+            myDictAddressCopy.Clear();
+        }
+
+        public static void addressBookNewExisting()
+        {
+            Console.WriteLine("Enter a input\n" +
+                "1. New addresbook\n" +
+                "2. Existing addressbook");
+            int key = Convert.ToInt32(Console.ReadLine());
+            if (key == 1)
+            {
+                addAddressBook();
+            }
+            else if (key == 2)
+            {
+                ExistingNameAddressBookValidator();
+            }
+        }
+
         public static void addAddressBook()
         {
-            Console.Write("How many addressbooks do you want to create: ");
+            Console.Write("How many addressbooks do you want to create?");
             int count = Convert.ToInt32(Console.ReadLine());
             while (count > 0)
             {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook" +
-                    "\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    NewNameAddressBookValidator();
-                }
-                else if (key == 2)
-                {
-                    ExistingNameAddressBookValidator();
-                }
+                NewNameAddressBookValidator();
                 count--;
             }
         }
@@ -134,30 +155,78 @@ namespace DAY_23_AddressBook
                 return false;
             }
         }
-        public static void ContactsDisplay()
-        {
-            Console.Write("Enter the name of the addressbook that you wants to use for displaying contacts: ");
-            string addressBookName = Console.ReadLine();
-            Console.WriteLine();
-            if (myDictAddress[addressBookName].Count > 0)
-            {
-                foreach (Contacts contact in myDictAddress[addressBookName])
-                {
-                    Console.WriteLine($"First name-->{contact.firstName}");
-                    Console.WriteLine($"Last name-->{contact.lastName}");
-                    Console.WriteLine($"Address-->{contact.address}");
-                    Console.WriteLine($"City-->{contact.city}");
-                    Console.WriteLine($"State-->{contact.state}");
-                    Console.WriteLine($"Zip code-->{contact.ZipCode}");
-                    Console.WriteLine($"Phone number-->{contact.PhoneNumber}");
-                    Console.WriteLine($"E-Mail ID-->{contact.eMail}");
-                    Console.WriteLine("------------------");
 
+        public static void AddressBookDisplay()
+        {
+            if (myDictAddress.Count > 0)
+            {
+                Console.Write("Enter the name of the addressbook that you wants to use for displaying contacts: ");
+                string addressBookName = Console.ReadLine();
+                if (myDictAddress[addressBookName].Count > 0)
+                {
+                    foreach (Contacts contact in myDictAddress[addressBookName])
+                    {
+                        Console.WriteLine("First name-->{0}", contact.firstName);
+                        Console.WriteLine("Last name-->{0}", contact.lastName);
+                        Console.WriteLine("Address-->{0}", contact.address);
+                        Console.WriteLine("City-->{0}", contact.city);
+                        Console.WriteLine("State-->{0}", contact.state);
+                        Console.WriteLine("Zip code-->{0}", contact.ZipCode);
+                        Console.WriteLine("Phone number-->{0}", contact.PhoneNumber);
+                        Console.WriteLine("E-Mail ID-->{0}", contact.eMail);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Your address book is empty");
                 }
             }
             else
             {
-                Console.WriteLine("Your address book is empty");
+                Console.WriteLine("You don't have any addressbook");
+            }
+        }
+
+        public static void ContactsDisplay()
+        {
+            if (myDictAddress.Count > 0)
+            {
+                Console.Write("Enter the name of the addressbook that you wants to use for displaying contacts: ");
+                string addressBookName = Console.ReadLine();
+                if (myDictAddress[addressBookName].Count > 0)
+                {
+                    Console.WriteLine("Enter the name of the person to get all the contact details");
+                    string nameKey = Console.ReadLine();
+                    int flag = 0;
+                    foreach (Contacts contact in myDictAddress[addressBookName])
+                    {
+                        if (nameKey.ToLower() == contact.firstName.ToLower())
+                        {
+                            flag = 1;
+                            Console.WriteLine("First name-->{0}", contact.firstName);
+                            Console.WriteLine("Last name-->{0}", contact.lastName);
+                            Console.WriteLine("Address-->{0}", contact.address);
+                            Console.WriteLine("City-->{0}", contact.city);
+                            Console.WriteLine("State-->{0}", contact.state);
+                            Console.WriteLine("Zip code-->{0}", contact.ZipCode);
+                            Console.WriteLine("Phone number-->{0}", contact.PhoneNumber);
+                            Console.WriteLine("E-Mail ID-->{0}", contact.eMail);
+                            break;
+                        }
+                    }
+                    if (flag == 0)
+                    {
+                        Console.WriteLine("contact of the person {0} does not exist", nameKey);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Your address book is empty");
+                }
+            }
+            else
+            {
+                Console.WriteLine("You don't have any addressbook");
             }
         }
 
@@ -329,7 +398,7 @@ namespace DAY_23_AddressBook
             if (myDictAddress.ContainsKey(addressBookName))
             {
                 myDictAddress[addressBookName].Sort((x,y) => x.firstName.CompareTo(y.firstName));
-                ContactsDisplay();
+                AddressBookDisplay();
             }
             else
             {
@@ -337,40 +406,46 @@ namespace DAY_23_AddressBook
             }
         }
 
-        public static void SortByCityStateZip()
+        public static void AddressBookSorting()
         {
-            Console.Write("Enter the name of address book you want to sort: ");
-            string addressBookName = Console.ReadLine();
-            Console.WriteLine("\nNow enter \n1. To sort by cities \n2. To sort by State \n3. To sort by Zip-Code");
-            int choice = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-
-            if (myDictAddress.ContainsKey(addressBookName))
+            if (myDictAddress.Count > 0)
             {
-                switch (choice)
+                Console.WriteLine("Enter the addressbook name that you want to sort it");
+                string addressBookName = Console.ReadLine();
+
+                if (myDictAddress.ContainsKey(addressBookName))
                 {
-                    case 1:
-                        myDictAddress[addressBookName].Sort((x, y) => x.city.CompareTo(y.city));
-                        break;
-
-                    case 2:
-                        myDictAddress[addressBookName].Sort((x, y) => x.state.CompareTo(y.state));
-                        break;
-
-                    case 3:
-                        myDictAddress[addressBookName].Sort((x, y) => x.ZipCode.CompareTo(y.ZipCode));
-                        break;
-
-                    default:
-                        Console.WriteLine("Please enter valid input.");
-                        break;
+                    SortBy(addressBookName);
                 }
-
-                ContactsDisplay();
+                else
+                {
+                    Console.WriteLine("The given addressbook does not exist. please enter a valid addressbook  name");
+                    AddressBookSorting();
+                }
             }
             else
             {
-                Console.WriteLine("This address book doesn't exists in our record.");
+                Console.WriteLine("You don't have any addressbook");
+            }
+        }
+
+        public static void SortBy(string addressBookName)
+        {
+            Console.WriteLine("How do you want the addressbook to be sorted?\n Enter\n1 to sort based on City\n2 to sort based on State\n3 to sort based on Zipcode");
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    myDictAddress[addressBookName].Sort((x, y) => x.city.CompareTo(y.city));
+                    Console.WriteLine("Sorted by City");
+                    break;
+                case "2":
+                    myDictAddress[addressBookName].Sort((x, y) => x.state.CompareTo(y.state));
+                    Console.WriteLine("Sorted by State");
+                    break;
+                case "3":
+                    myDictAddress[addressBookName].Sort((x, y) => x.ZipCode.CompareTo(y.ZipCode));
+                    Console.WriteLine("Sorted by ZipCode");
+                    break;
             }
         }
     }
